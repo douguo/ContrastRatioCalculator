@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (CRCAdditions)
 
-@property (nonatomic, readonly) NSString *crc_name;
-@property (nonatomic, readonly) NSString *crc_rgbaValue;
-@property (nonatomic, readonly) NSString *crc_hsbaValue;
-@property (nonatomic, readonly) NSString *crc_hexValue;
+@property (nonatomic, readonly) NSString *crc_hexRepr;
 
+@property (nonatomic, readonly) CGFloat crc_red;
+@property (nonatomic, readonly) CGFloat crc_green;
+@property (nonatomic, readonly) CGFloat crc_blue;
 @property (nonatomic, readonly) CGFloat crc_alpha;
 @property (nonatomic, readonly) CGFloat crc_luminance;
 

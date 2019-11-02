@@ -16,6 +16,9 @@
 		798A3E4A2339E6F800F07330 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798A3E482339E6F800F07330 /* LaunchScreen.storyboard */; };
 		798A3E4D2339E6F800F07330 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 798A3E4C2339E6F800F07330 /* main.m */; };
 		798A3E58233A145D00F07330 /* UIColor+CRCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 798A3E57233A145D00F07330 /* UIColor+CRCAdditions.m */; };
+		79AEE444234DD74E002B73ED /* CRCPaletteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEE443234DD74E002B73ED /* CRCPaletteViewController.m */; };
+		79F36E672350BDA20044E10E /* CRCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F36E662350BDA20044E10E /* CRCColor.m */; };
+		79F36E6A2351A2870044E10E /* CRCDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F36E692351A2870044E10E /* CRCDefaults.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,13 @@
 		798A3E4C2339E6F800F07330 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		798A3E56233A143700F07330 /* UIColor+CRCAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+CRCAdditions.h"; sourceTree = "<group>"; };
 		798A3E57233A145D00F07330 /* UIColor+CRCAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CRCAdditions.m"; sourceTree = "<group>"; };
+		79AEE43B234C6646002B73ED /* Contrast Ratio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Contrast Ratio.entitlements"; sourceTree = "<group>"; };
+		79AEE442234DD74D002B73ED /* CRCPaletteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRCPaletteViewController.h; sourceTree = "<group>"; };
+		79AEE443234DD74E002B73ED /* CRCPaletteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRCPaletteViewController.m; sourceTree = "<group>"; };
+		79F36E652350BDA20044E10E /* CRCColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRCColor.h; sourceTree = "<group>"; };
+		79F36E662350BDA20044E10E /* CRCColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRCColor.m; sourceTree = "<group>"; };
+		79F36E682351A2870044E10E /* CRCDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRCDefaults.h; sourceTree = "<group>"; };
+		79F36E692351A2870044E10E /* CRCDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRCDefaults.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +77,7 @@
 		798A3E362339E6F600F07330 /* ContrastRatioCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				79AEE43B234C6646002B73ED /* Contrast Ratio.entitlements */,
 				798A3E372339E6F600F07330 /* AppDelegate.h */,
 				798A3E382339E6F600F07330 /* AppDelegate.m */,
 				798A3E3A2339E6F600F07330 /* SceneDelegate.h */,
@@ -75,6 +86,12 @@
 				798A3E3E2339E6F600F07330 /* CRCColorsViewController.m */,
 				798A3E402339E6F600F07330 /* CRCRatioViewController.h */,
 				798A3E412339E6F600F07330 /* CRCRatioViewController.m */,
+				79AEE442234DD74D002B73ED /* CRCPaletteViewController.h */,
+				79AEE443234DD74E002B73ED /* CRCPaletteViewController.m */,
+				79F36E652350BDA20044E10E /* CRCColor.h */,
+				79F36E662350BDA20044E10E /* CRCColor.m */,
+				79F36E682351A2870044E10E /* CRCDefaults.h */,
+				79F36E692351A2870044E10E /* CRCDefaults.m */,
 				798A3E56233A143700F07330 /* UIColor+CRCAdditions.h */,
 				798A3E57233A145D00F07330 /* UIColor+CRCAdditions.m */,
 				798A3E432339E6F700F07330 /* Main.storyboard */,
@@ -160,7 +177,10 @@
 				798A3E392339E6F600F07330 /* AppDelegate.m in Sources */,
 				798A3E3F2339E6F600F07330 /* CRCColorsViewController.m in Sources */,
 				798A3E58233A145D00F07330 /* UIColor+CRCAdditions.m in Sources */,
+				79F36E672350BDA20044E10E /* CRCColor.m in Sources */,
 				798A3E3C2339E6F600F07330 /* SceneDelegate.m in Sources */,
+				79F36E6A2351A2870044E10E /* CRCDefaults.m in Sources */,
+				79AEE444234DD74E002B73ED /* CRCPaletteViewController.m in Sources */,
 				798A3E422339E6F600F07330 /* CRCRatioViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,7 +321,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "ContrastRatioCalculator/Contrast Ratio.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = H8YP62VM6W;
 				INFOPLIST_FILE = ContrastRatioCalculator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -310,6 +333,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.douguo.ContrastRatioCalculator;
 				PRODUCT_NAME = "Contrast Ratio";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -318,7 +342,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "ContrastRatioCalculator/Contrast Ratio.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = H8YP62VM6W;
 				INFOPLIST_FILE = ContrastRatioCalculator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -327,6 +354,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.douguo.ContrastRatioCalculator;
 				PRODUCT_NAME = "Contrast Ratio";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

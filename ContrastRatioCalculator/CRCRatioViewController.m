@@ -34,21 +34,21 @@
 	if (self.phase == CRCPresentationPhase1) {
 		
 		textColor = [UIColor labelColor];
-		backgroundColor = self.color;
+		backgroundColor = self.color.color;
 		
 	} else if (self.phase == CRCPresentationPhase2) {
 		
 		textColor = [UIColor labelColor].crc_oppositeColor;
-		backgroundColor = self.color;
+		backgroundColor = self.color.color;
 		
 	} else if (self.phase == CRCPresentationPhase3) {
 		
-		textColor = self.color;
+		textColor = self.color.color;
 		backgroundColor = [UIColor systemBackgroundColor];
 		
 	} else if (self.phase == CRCPresentationPhase4) {
 		
-		textColor = self.color;
+		textColor = self.color.color;
 		backgroundColor = [UIColor systemBackgroundColor].crc_oppositeColor;
 	}
 	
@@ -62,14 +62,14 @@
 	
 	BOOL isTextColorTranslucent = textColor.crc_alpha < 1.0;
 	BOOL isBackgroundColorTranslucent = backgroundColor.crc_alpha < 1.0;
-	BOOL isTargetColorTranslucent = self.color.crc_alpha < 1.0;
+	BOOL isTargetColorTranslucent = self.color.color.crc_alpha < 1.0;
 	
 	CGFloat ratio;
 	UIColor *visualColor;
 	
 	if (isTextColorTranslucent && isBackgroundColorTranslucent) {
-
-		self.colorNameLabel.text = @"serious?";
+		
+		self.colorDescriptionLabel.text = @"serious?";
 		ratio = 0;
 		
 	} else if (isBackgroundColorTranslucent) {
@@ -110,21 +110,21 @@
 	
 	
 	
-	NSString *value = [NSString stringWithFormat:@"%@\n", self.color.crc_name];
+	NSString *value = [NSString stringWithFormat:@"%@\n", self.color.name];
 	
 	if (!isTargetColorTranslucent) {
 		
-		value = [value stringByAppendingFormat:@"%@\n", self.color.crc_hexValue];
-		value = [value stringByAppendingFormat:@"luminance: %.2f\n", self.color.crc_luminance];
+		value = [value stringByAppendingFormat:@"%@\n", self.color.hexadecimalRepresentation];
+		value = [value stringByAppendingFormat:@"luminance: %.2f\n", self.color.color.crc_luminance];
 		
 	} else {
 		
-		value = [value stringByAppendingFormat:@"%@ (visually %@)\n", self.color.crc_hexValue, visualColor.crc_hexValue];
-		value = [value stringByAppendingFormat:@"luminance: %.2f (ignoring its alpha)\n", self.color.crc_luminance];
+		value = [value stringByAppendingFormat:@"%@ (visually %@)\n", self.color.hexadecimalRepresentation, visualColor.crc_hexRepr];
+		value = [value stringByAppendingFormat:@"luminance: %.2f (ignoring its alpha)\n", self.color.color.crc_luminance];
 	}
 	
-	value = [value stringByAppendingFormat:@"%@\n", self.color.crc_rgbaValue];
-	value = [value stringByAppendingFormat:@"%@", self.color.crc_hsbaValue];
+	value = [value stringByAppendingFormat:@"%@\n", self.color.rgbaValue];
+	value = [value stringByAppendingFormat:@"%@", self.color.hsbaValue];
 	
 	self.colorValueLabel.text = value;
 }
@@ -136,7 +136,7 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setColor:(UIColor *)color {
+- (void)setColor:(CRCColor *)color {
 	
 	if (_color != color) {
 	    _color = color;

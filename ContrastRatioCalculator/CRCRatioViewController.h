@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UIColor+CRCAdditions.h"
+#import "CRCColor.h"
 
 typedef NS_ENUM(NSInteger, CRCPresentationPhase) {
     CRCPresentationPhase1,	// label-color label + target color background
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, CRCPresentationPhase) {
 
 @interface CRCRatioViewController : UIViewController
 
-@property (strong, nonatomic) UIColor *color;
+@property (strong, nonatomic) CRCColor *color;
 
 @property (nonatomic) CRCPresentationPhase phase;
 

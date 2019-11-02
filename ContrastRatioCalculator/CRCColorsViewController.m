@@ -7,11 +7,12 @@
 //
 
 #import "CRCColorsViewController.h"
-#import "CRCRatioViewController.h"
 
 @interface CRCColorsViewController ()
 
-@property NSMutableArray *colors;
+@property (nonatomic, strong) NSMutableArray *colors;
+
+@property (nonatomic, strong) NSIndexPath *editingIndexPath;
 
 @end
 
@@ -23,71 +24,73 @@
 	
 	self.detailViewController = (CRCRatioViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 	
-	
-	
 	self.colors = [NSMutableArray arrayWithCapacity:0];
 	
-	[self.colors addObject:[UIColor systemBlueColor]];
-	[self.colors addObject:[UIColor systemGreenColor]];
-	[self.colors addObject:[UIColor systemIndigoColor]];
-	[self.colors addObject:[UIColor systemOrangeColor]];
-	[self.colors addObject:[UIColor systemPinkColor]];
-	[self.colors addObject:[UIColor systemPurpleColor]];
-	[self.colors addObject:[UIColor systemRedColor]];
-	[self.colors addObject:[UIColor systemTealColor]];
-	[self.colors addObject:[UIColor systemYellowColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemBlueColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGreenColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemIndigoColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemOrangeColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemPinkColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemPurpleColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemRedColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemTealColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemYellowColor"]];
 	
-	[self.colors addObject:[UIColor systemGrayColor]];
-	[self.colors addObject:[UIColor systemGray2Color]];
-	[self.colors addObject:[UIColor systemGray3Color]];
-	[self.colors addObject:[UIColor systemGray4Color]];
-	[self.colors addObject:[UIColor systemGray5Color]];
-	[self.colors addObject:[UIColor systemGray6Color]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGrayColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGray2Color"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGray3Color"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGray4Color"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGray5Color"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGray6Color"]];
 	
-	[self.colors addObject:[UIColor labelColor]];
-	[self.colors addObject:[UIColor secondaryLabelColor]];
-	[self.colors addObject:[UIColor tertiaryLabelColor]];
-	[self.colors addObject:[UIColor quaternaryLabelColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"labelColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"secondaryLabelColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"tertiaryLabelColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"quaternaryLabelColor"]];
 	
-	[self.colors addObject:[UIColor systemFillColor]];
-	[self.colors addObject:[UIColor secondarySystemFillColor]];
-	[self.colors addObject:[UIColor tertiarySystemFillColor]];
-	[self.colors addObject:[UIColor quaternarySystemFillColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemFillColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"secondarySystemFillColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"tertiarySystemFillColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"quaternarySystemFillColor"]];
 	
-	[self.colors addObject:[UIColor placeholderTextColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"placeholderTextColor"]];
 	
-	[self.colors addObject:[UIColor systemBackgroundColor]];
-	[self.colors addObject:[UIColor secondarySystemBackgroundColor]];
-	[self.colors addObject:[UIColor tertiarySystemBackgroundColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemBackgroundColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"secondarySystemBackgroundColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"tertiarySystemBackgroundColor"]];
 	
-	[self.colors addObject:[UIColor systemGroupedBackgroundColor]];
-	[self.colors addObject:[UIColor secondarySystemGroupedBackgroundColor]];
-	[self.colors addObject:[UIColor tertiarySystemGroupedBackgroundColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"systemGroupedBackgroundColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"secondarySystemGroupedBackgroundColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"tertiarySystemGroupedBackgroundColor"]];
 	
-	[self.colors addObject:[UIColor separatorColor]];
-	[self.colors addObject:[UIColor opaqueSeparatorColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"separatorColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"opaqueSeparatorColor"]];
 	
-	[self.colors addObject:[UIColor linkColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"linkColor"]];
 	
 	
 	
-	[self.colors addObject:[UIColor blackColor]];
-	[self.colors addObject:[UIColor blueColor]];
-	[self.colors addObject:[UIColor brownColor]];
-	[self.colors addObject:[UIColor cyanColor]];
-	[self.colors addObject:[UIColor darkGrayColor]];
-	[self.colors addObject:[UIColor grayColor]];
-	[self.colors addObject:[UIColor greenColor]];
-	[self.colors addObject:[UIColor lightGrayColor]];
-	[self.colors addObject:[UIColor magentaColor]];
-	[self.colors addObject:[UIColor orangeColor]];
-	[self.colors addObject:[UIColor purpleColor]];
-	[self.colors addObject:[UIColor redColor]];
-	[self.colors addObject:[UIColor whiteColor]];
-	[self.colors addObject:[UIColor yellowColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"blackColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"blueColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"brownColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"cyanColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"darkGrayColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"grayColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"greenColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"lightGrayColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"magentaColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"orangeColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"purpleColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"redColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"whiteColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"yellowColor"]];
 	
-	[self.colors addObject:[UIColor darkTextColor]];
-	[self.colors addObject:[UIColor lightTextColor]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"darkTextColor"]];
+	[self.colors addObject:[CRCColor colorWithPaletteName:@"lightTextColor"]];
+	
+	
+	
+	[self.colors addObjectsFromArray:[CRCDefaults allColors]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,7 +105,7 @@
 	if ([[segue identifier] isEqualToString:@"showDetail"]) {
 		
 	    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-	    UIColor *color = self.colors[indexPath.row];
+	    CRCColor *color = self.colors[indexPath.row];
 		
 	    CRCRatioViewController *controller = (CRCRatioViewController *)[[segue destinationViewController] topViewController];
 	    controller.color = color;
@@ -110,6 +113,19 @@
 	    controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
 	    controller.navigationItem.leftItemsSupplementBackButton = YES;
 	    self.detailViewController = controller;
+		
+	} else if ([[segue identifier] isEqualToString:@"present"]) {
+		
+		CRCPaletteViewController *controller = (CRCPaletteViewController *)[[segue destinationViewController] topViewController];
+		controller.delegate = self;
+		
+		if ([sender isKindOfClass:[CRCColor class]]) {
+			
+			CRCColor *color = (CRCColor *)sender;
+			color = [color copy];
+			
+			controller.color = color;
+		}
 	}
 }
 
@@ -123,19 +139,63 @@
 	return self.colors.count;
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	CRCColor *color = self.colors[indexPath.row];
+	
+	UIContextualAction *delete = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+																		 title:@"Delete"
+																	   handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+		
+		CRCColor *color = self.colors[indexPath.row];
+		[CRCDefaults removeColor:color];
+		
+		[self.colors removeObjectAtIndex:indexPath.row];
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+		
+		completionHandler(YES);
+	}];
+	delete.image = [UIImage systemImageNamed:@"trash"];
+	
+	UIContextualAction *edit = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+																		 title:@"Edit"
+																	   handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+		
+		CRCColor *color = self.colors[indexPath.row];
+		[self performSegueWithIdentifier:@"present" sender:color];
+		
+		self.editingIndexPath = indexPath;
+		
+		completionHandler(YES);
+	}];
+	edit.image = [UIImage systemImageNamed:@"pencil"];
+	
+	NSArray *actions;
+	
+	if (color.date) {
+		actions = @[delete, edit];
+	} else {
+		actions = @[edit];
+	}
+	
+	UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:actions];
+	
+	return config;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 	
-	UIColor *color = self.colors[indexPath.row];
-	cell.textLabel.text = color.crc_name;
-	cell.detailTextLabel.text = color.crc_hexValue;
+	CRCColor *color = self.colors[indexPath.row];
+	cell.textLabel.text = color.name;
+	cell.detailTextLabel.text = color.hexadecimalRepresentation;
 	
-	cell.contentView.backgroundColor = color;
+	cell.contentView.backgroundColor = color.color;
 	
 	
 	
-	CGFloat ratio = [UIColor crc_contrastRatioBetweenColor1:color andColor2:[UIColor labelColor]];
+	CGFloat ratio = [UIColor crc_contrastRatioBetweenColor1:color.color andColor2:[UIColor labelColor]];
 	BOOL unreadable = ratio < 1.4;
 	
 	if (unreadable) {
@@ -156,6 +216,26 @@
 	}
 	
 	return cell;
+}
+
+#pragma mark - CRCPaletteViewControllerDelegate
+
+- (void)paletteViewController:(CRCPaletteViewController *)controller didAddColor:(CRCColor *)color {
+	
+	[self.colors addObject:color];
+	
+	[self.tableView reloadData];
+	
+	NSIndexPath *path = [NSIndexPath indexPathForRow:self.colors.count - 1 inSection:0];
+	[self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+- (void)paletteViewController:(CRCPaletteViewController *)controller didEditColor:(CRCColor *)color {
+	
+//	[self.colors replaceObjectAtIndex:self.editingIndexPath.row withObject:color];
+	[self.tableView reloadRowsAtIndexPaths:@[self.editingIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+	
+	self.editingIndexPath = nil;
 }
 
 @end

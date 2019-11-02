@@ -12,69 +12,20 @@
 
 @implementation UIColor (CRCAdditions)
 
-- (NSString *)crc_name {
-	
-	NSString *name = self.description;
-	
-	NSString *prefix = @"name = ";
-	NSUInteger index = [name rangeOfString:prefix].location;
-	
-	if (index == NSNotFound) {
-		return @"unnamedColor";
-	}
-	
-	index += prefix.length;
-	if (index < name.length) {
-		name = [name substringFromIndex:index];
-	}
-	
-	NSString *suffix = @">";
-	index = [name rangeOfString:suffix].location;
-	if (index < name.length) {
-		name = [name substringToIndex:index];
-	}
-	
-	return name;
-}
+- (NSString *)crc_hexRepr {
 
-- (NSString *)crc_rgbaValue {
-	
 	CGFloat red;
 	CGFloat green;
 	CGFloat blue;
 	CGFloat alpha;
 	
 	[self getRed:&red green:&green blue:&blue alpha:&alpha];
-	
-	return [NSString stringWithFormat:@"red:%0.2f green:%0.2f blue:%0.2f alpha:%0.2f", red, green, blue, alpha];
-}
 
-- (NSString *)crc_hsbaValue {
-	
-	CGFloat hue;
-	CGFloat saturation;
-	CGFloat brightness;
-	CGFloat alpha;
-	
-	[self getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-	
-	return [NSString stringWithFormat:@"hue:%0.2f sat:%0.2f bri:%0.2f alpha:%0.2f", hue, saturation, brightness, alpha];
-}
-
-- (NSString *)crc_hexValue {
-	
-	CGFloat red;
-	CGFloat green;
-	CGFloat blue;
-	CGFloat alpha;
-	
-	[self getRed:&red green:&green blue:&blue alpha:&alpha];
-	
 	NSInteger integerRed = red * 255;
 	NSInteger integerGreen = green * 255;
 	NSInteger integerBlue = blue * 255;
 	NSInteger integerAlpha = alpha * 255;
-	
+
 	return [NSString stringWithFormat:@"#%02lX%02lX%02lX%02lX", integerRed, integerGreen, integerBlue, integerAlpha];
 }
 
@@ -104,6 +55,32 @@
 //
 //	return self.crc_luminance < kDarkColorThreshold;
 //}
+- (CGFloat)crc_red {
+	
+	CGFloat red;
+	
+	[self getRed:&red green:nil blue:nil alpha:nil];
+	
+	return red;
+}
+
+- (CGFloat)crc_green {
+	
+	CGFloat green;
+	
+	[self getRed:nil green:&green blue:nil alpha:nil];
+	
+	return green;
+}
+
+- (CGFloat)crc_blue {
+	
+	CGFloat blue;
+	
+	[self getRed:nil green:nil blue:&blue alpha:nil];
+	
+	return blue;
+}
 
 - (CGFloat)crc_alpha {
 	

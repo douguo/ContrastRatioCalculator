@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UIColor+CRCAdditions.h"
+#import "CRCColor.h"
+
+#import "CRCDefaults.h"
+
+#import "CRCRatioViewController.h"
+#import "CRCPaletteViewController.h"
 
 @class CRCRatioViewController;
 
-@interface CRCColorsViewController : UITableViewController
+@interface CRCColorsViewController : UITableViewController <CRCPaletteViewControllerDelegate>
 
 @property (strong, nonatomic) CRCRatioViewController *detailViewController;
 
