@@ -19,6 +19,13 @@
 
 @interface CRCColorsViewController : UITableViewController <CRCPaletteViewControllerDelegate>
 
-@property (strong, nonatomic) CRCRatioViewController *detailViewController;
+@property (weak, nonatomic) CRCColor *color;
+@property (weak, nonatomic) CRCColor *secondaryColor;
+
+@property (nonatomic) BOOL allowsMultipleSelection;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *multiSelectionItem;
+
+- (IBAction)multiSelectionItemTapped:(UIBarButtonItem *)item;
 
 @end

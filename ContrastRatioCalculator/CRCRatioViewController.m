@@ -33,7 +33,7 @@
 	
 	if (self.phase == CRCPresentationPhase1) {
 		
-		textColor = [UIColor labelColor];
+		textColor = self.secondaryColor ? self.secondaryColor.color : [UIColor labelColor];
 		backgroundColor = self.color.color;
 		
 	} else if (self.phase == CRCPresentationPhase2) {
@@ -44,7 +44,7 @@
 	} else if (self.phase == CRCPresentationPhase3) {
 		
 		textColor = self.color.color;
-		backgroundColor = [UIColor systemBackgroundColor];
+		backgroundColor = self.secondaryColor ? self.secondaryColor.color : [UIColor systemBackgroundColor];
 		
 	} else if (self.phase == CRCPresentationPhase4) {
 		
@@ -141,20 +141,42 @@
 	if (_color != color) {
 	    _color = color;
 	    
+		self.phase = CRCPresentationPhase1;
+	    [self configureView];
+	}
+}
+
+- (void)setSecondaryColor:(CRCColor *)secondaryColor {
+	
+	if (_secondaryColor != secondaryColor) {
+		_secondaryColor = secondaryColor;
+		
+		self.phase = CRCPresentationPhase1;
 	    [self configureView];
 	}
 }
 
 - (void)tapped:(id)sender {
 	
-	if (self.phase == CRCPresentationPhase1) {
-		self.phase = CRCPresentationPhase2;
-	} else if (self.phase == CRCPresentationPhase2) {
-		self.phase = CRCPresentationPhase3;
-	} else if (self.phase == CRCPresentationPhase3) {
-		self.phase = CRCPresentationPhase4;
-	} else if (self.phase == CRCPresentationPhase4) {
-		self.phase = CRCPresentationPhase1;
+	if (self.secondaryColor) {
+		
+		if (self.phase == CRCPresentationPhase1) {
+			self.phase = CRCPresentationPhase3;
+		} else if (self.phase == CRCPresentationPhase3) {
+			self.phase = CRCPresentationPhase1;
+		}
+		
+	} else {
+		
+		if (self.phase == CRCPresentationPhase1) {
+			self.phase = CRCPresentationPhase2;
+		} else if (self.phase == CRCPresentationPhase2) {
+			self.phase = CRCPresentationPhase3;
+		} else if (self.phase == CRCPresentationPhase3) {
+			self.phase = CRCPresentationPhase4;
+		} else if (self.phase == CRCPresentationPhase4) {
+			self.phase = CRCPresentationPhase1;
+		}
 	}
 	
 	[self configureView];

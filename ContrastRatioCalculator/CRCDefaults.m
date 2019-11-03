@@ -16,24 +16,18 @@
 
 @implementation CRCDefaults
 
-+ (BOOL)setColor:(CRCColor *)color forKey:(NSString *)name overwrite:(BOOL)overwrite {
++ (void)setColor:(CRCColor *)color forKey:(NSString *)name {
 	
 	if (![color isKindOfClass:[CRCColor class]] || name.length <= 0) {
-		return NO;
+		return;
 	}
 	
 	NSMutableDictionary *dictionary = [self colorsDictionary];
-	
-	if (!overwrite && [dictionary.allKeys containsObject:name]) {
-		return NO;
-	}
 	
 	[dictionary setObject:color forKey:name];
 	
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary requiringSecureCoding:NO error:nil];
 	[[NSUserDefaults standardUserDefaults] setObject:data forKey:@"COLORS"];
-	
-	return YES;
 }
 
 + (void)removeColor:(CRCColor *)color {

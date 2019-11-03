@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CRCDefaults : NSObject
 
-+ (BOOL)setColor:(CRCColor *)color forKey:(NSString *)name overwrite:(BOOL)overwrite;
++ (void)setColor:(CRCColor *)color forKey:(NSString *)name;
 
 + (void)removeColor:(CRCColor *)color;
 

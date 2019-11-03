@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSMutableArray *colors;
 
 @property (nonatomic, strong) NSIndexPath *editingIndexPath;
+@property (nonatomic, strong) NSIndexPath *lastSelectedIndexPath;
 
 @end
 
@@ -21,8 +22,6 @@
 - (void)viewDidLoad {
 	
 	[super viewDidLoad];
-	
-	self.detailViewController = (CRCRatioViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 	
 	self.colors = [NSMutableArray arrayWithCapacity:0];
 	
@@ -104,15 +103,10 @@
 	
 	if ([[segue identifier] isEqualToString:@"showDetail"]) {
 		
-	    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-	    CRCColor *color = self.colors[indexPath.row];
-		
-	    CRCRatioViewController *controller = (CRCRatioViewController *)[[segue destinationViewController] topViewController];
-	    controller.color = color;
-		controller.phase = CRCPresentationPhase1;
-	    controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-	    controller.navigationItem.leftItemsSupplementBackButton = YES;
-	    self.detailViewController = controller;
+		CRCRatioViewController *controller = (CRCRatioViewController *)[[segue destinationViewController] topViewController];
+		controller.color = self.color;
+		controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+		controller.navigationItem.leftItemsSupplementBackButton = YES;
 		
 	} else if ([[segue identifier] isEqualToString:@"present"]) {
 		
@@ -122,9 +116,7 @@
 		if ([sender isKindOfClass:[CRCColor class]]) {
 			
 			CRCColor *color = (CRCColor *)sender;
-			color = [color copy];
-			
-			controller.color = color;
+			controller.color = [color copy];
 		}
 	}
 }
@@ -150,16 +142,37 @@
 		CRCColor *color = self.colors[indexPath.row];
 		[CRCDefaults removeColor:color];
 		
+		if (self.color == color) {
+			
+			if (self.secondaryColor) {
+				
+				self.color = self.secondaryColor;
+				self.secondaryColor = nil;
+				
+			} else {
+
+				self.color = nil;
+			}
+		}
+		
+		if (self.secondaryColor == color) {
+			self.secondaryColor = nil;
+		}
+		
 		[self.colors removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+		
+		if (self.lastSelectedIndexPath.row == indexPath.row) {
+			self.lastSelectedIndexPath = nil;
+		}
 		
 		completionHandler(YES);
 	}];
 	delete.image = [UIImage systemImageNamed:@"trash"];
 	
 	UIContextualAction *edit = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-																		 title:@"Edit"
-																	   handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+																	   title:@"Edit"
+																	 handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 		
 		CRCColor *color = self.colors[indexPath.row];
 		[self performSegueWithIdentifier:@"present" sender:color];
@@ -191,7 +204,7 @@
 	cell.textLabel.text = color.name;
 	cell.detailTextLabel.text = color.hexadecimalRepresentation;
 	
-	cell.contentView.backgroundColor = color.color;
+	cell.contentView.superview.backgroundColor = color.color;
 	
 	
 	
@@ -215,7 +228,26 @@
 		cell.detailTextLabel.shadowColor = nil;
 	}
 	
+	
+	
+	if (self.allowsMultipleSelection) {
+		
+		if (color == self.color || color == self.secondaryColor) {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+			cell.tintColor = color.color.crc_oppositeColor;
+		} else {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		}
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+		
 	return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	self.lastSelectedIndexPath = indexPath;
 }
 
 #pragma mark - CRCPaletteViewControllerDelegate
@@ -232,10 +264,145 @@
 
 - (void)paletteViewController:(CRCPaletteViewController *)controller didEditColor:(CRCColor *)color {
 	
-//	[self.colors replaceObjectAtIndex:self.editingIndexPath.row withObject:color];
+	[self.colors replaceObjectAtIndex:self.editingIndexPath.row withObject:color];
 	[self.tableView reloadRowsAtIndexPaths:@[self.editingIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	
 	self.editingIndexPath = nil;
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+	
+	if ([identifier isEqualToString:@"showDetail"]) {
+		
+		NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+		
+		if (indexPath.row >= self.colors.count) {
+			return YES;
+		}
+		
+		CRCColor *color = self.colors[indexPath.row];
+		
+		UINavigationController *navigationController = self.splitViewController.viewControllers.lastObject;
+		CRCRatioViewController *controller = (CRCRatioViewController *)navigationController.topViewController;
+		
+		if (![controller isKindOfClass:[CRCRatioViewController class]]) {
+			self.color = color;
+			return YES;
+		}
+		
+		if (!self.allowsMultipleSelection) {
+			
+			self.color = color;
+			controller.color = color;
+			
+			[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+			
+			return YES;
+			
+		} else {
+			
+			if (self.color == nil) {
+				
+				self.color = color;
+				controller.color = color;
+				
+				[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+				
+				return YES;
+			}
+			
+			
+			
+			if (color == self.color) {
+				
+				if (self.secondaryColor != nil) { // deselect the primary color, make the secondary color primary
+					
+					self.color = self.secondaryColor;
+					self.secondaryColor = nil;
+					
+					controller.color = self.color;
+					controller.secondaryColor = nil;
+					
+				} else { // select primary color twice, while no secondary color selected
+					
+					// do nothing
+				}
+				
+			} else if (color == self.secondaryColor) {
+				
+				if (self.color != nil) { // select secondary color twice, deselect it
+					
+					self.secondaryColor = nil;
+					controller.secondaryColor = nil;
+					
+				} else { // select secondary color before primary color?
+					
+					// impossible, has already performed segue in the first place
+				}
+				
+			} else { // select a new secondary color
+				
+				self.secondaryColor = color;
+				controller.secondaryColor = color;
+				
+			} // (and it's also impossible that priamry color and secondary color are same colors)
+			
+			
+			
+			NSArray *paths;
+			
+			if (self.lastSelectedIndexPath) {
+				paths = @[indexPath, self.lastSelectedIndexPath];
+			} else {
+				paths = @[indexPath];
+			}
+			
+			[self.tableView reloadRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationAutomatic];
+			
+			return NO;
+		}
+	}
+	
+	return YES;
+}
+
+- (void)multiSelectionItemTapped:(UIBarButtonItem *)item {
+	
+	if (self.splitViewController.isCollapsed) {
+		
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Multiple selection requires a bigger window"
+																	   message:nil
+																preferredStyle:UIAlertControllerStyleAlert];
+		
+		[alert addAction:[UIAlertAction actionWithTitle:@"OK"
+												  style:UIAlertActionStyleCancel
+												handler:nil]];
+		
+		[self presentViewController:alert animated:YES completion:nil];
+		
+		return;
+	}
+	
+	
+	
+	self.allowsMultipleSelection = !self.allowsMultipleSelection;
+	
+	if (self.allowsMultipleSelection) {
+		
+		item.image = [UIImage systemImageNamed:@"2.circle.fill"];
+		
+	} else {
+		
+		self.secondaryColor = nil;
+		
+		UINavigationController *navigationController = self.splitViewController.viewControllers.lastObject;
+		CRCRatioViewController *controller = (CRCRatioViewController *)navigationController.topViewController;
+		controller.secondaryColor = nil;
+		
+		item.image = [UIImage systemImageNamed:@"2.circle"];
+	}
+	
+	[self.tableView reloadData];
 }
 
 @end

@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, CRCPresentationPhase) {
 @interface CRCRatioViewController : UIViewController
 
 @property (strong, nonatomic) CRCColor *color;
+@property (strong, nonatomic) CRCColor *secondaryColor;
 
 @property (nonatomic) CRCPresentationPhase phase;
 

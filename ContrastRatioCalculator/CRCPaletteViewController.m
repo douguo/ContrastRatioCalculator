@@ -66,16 +66,10 @@
 		BOOL isEditing = self.color.date != nil;
 		BOOL isSystemColorName = !isEditing && [self.color.name isEqualToString:textField.text];
 		
-		if (isEditing) {
-			[CRCDefaults removeColor:self.color];
-		}
+		CRCColor *existedColor = [CRCDefaults colorForKey:textField.text];
+		BOOL isCreatingExistedColor = !isEditing && existedColor;
 		
-		self.color.name = textField.text;
-		self.color.date = [NSDate now];
-		
-		BOOL writed = [CRCDefaults setColor:self.color forKey:self.color.name overwrite:NO];
-		
-		if (!writed || isSystemColorName) {
+		if (isCreatingExistedColor || isSystemColorName) {
 			
 			UIAlertController *anotherAlert = [UIAlertController alertControllerWithTitle:@"Color already exists"
 																				  message:nil
@@ -89,6 +83,15 @@
 			
 			return;
 		}
+		
+		if (isEditing) {
+			[CRCDefaults removeColor:self.color];
+		}
+		
+		self.color.name = textField.text;
+		self.color.date = [NSDate now];
+		
+		[CRCDefaults setColor:self.color forKey:self.color.name];
 		
 		[self dismissViewControllerAnimated:YES completion:^{
 			
